@@ -1,0 +1,30 @@
+ejecutar composer en el contenedor
+
+docker run --rm -it -v "$(pwd)":/app composer composer install
+
+* docker run: crea un nuevo contenedor
+* --rm: cuando el container termine de ejecutarse se elimina
+* --it: banderas --tty: muestra la consola de salida , --interactive: para tener interaccion con los comandos si es requerido
+* -v "$(pwd)"  : permite compartir el directorio con el contenedor para tener acceso e interactuar
+* :/app : mete o comparte el directorio del punto anterior en la carpeta /app del contenedor, es decir la ruta destino para la carpeta del proyecto
+* composer: representa a la imagen que se va usar, que previamente se ha descargado
+* composer install: secuencia de comandos
+
+
+[construir una imagen en base a un Dockerfile]: docker build -t nombre_del_contenedor ./
+
+
+[ Levantar servidor de laravel ]: docker run --rm -it -p 8000:8000 -v "$(pwd)":/app captacion-php php artisan serve --host=0.0.0.0
+
+* -p 8000:8000: asigna la redireccion de puerto [puerto-destino]:[puerto-origen-contenedor]
+
+NOTA: con el documento docker.compose.yml puedes configurar las instrucciones para levantar el servidor sin llevar las instrucciones a mano a la terminal
+
+[Levantar el servidor con docker-compose]: docker-compose up
+
+[entrar en un contenedor ejecutado con docker-compose]: docker-compose exec web bash
+
+[Ejecutar comando dentro de un contenedor activo]: docker-compose exec web /app/artisan migrate:status
+
+
+[Ejecutar comando para entrar en mysql]: docker-compose exec mysql mysql -uroot -p
